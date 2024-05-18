@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FACTURA</title>
+  </head>
+
+  <body>
+    <section class="header">
+      <table class="tabla-header">
+        <tbody>
+          <tr>
+            <td class="text-left">
+              <img
+                src={{ imagen_url }}
+                alt="Logo de la empresa"
+                height="100px"
+              />
+            </td>
+            <td class="text-center text-l">
+              <h1>FACTURA</h1>
+            </td>
+            <td class="text-right">
+              <h2 class="text-m text-bold">Régimen FEL</h2>
+              <p class="text-m text-bold">Documento Tributario Electrónico</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <hr class="separacion" />
+    <section class="datos-factura">
+      <table class="tabla-datos-factura">
+        <tbody>
+          <tr>
+            <td class="text-m text-bold">Emisor</td>
+            <td></td>
+            <td class="text-m text-right">Serie: 36fd6556dsf8dsf645</td>
+          </tr>
+          <tr>
+            <td class="text-m">INTELAF S.A.</td>
+            <td></td>
+            <td class="text-m text-right">Número: 3366445588</td>
+          </tr>
+          <tr>
+            <td class="text-m">SUCURSAL INTELAF XELA 1</td>
+            <td></td>
+            <td class="text-m text-right" style="text-wrap: balance">
+              Número de Autorización: 25B2A7F5-E9E8-503E-9EEA-9854EFKZAZ68
+            </td>
+          </tr>
+          <tr>
+            <td class="text-m">INTELAF S.A.</td>
+            <td></td>
+            <td class="text-m text-right">Número: 3366445588</td>
+          </tr>
+          <tr>
+            <td class="text-m">
+              KM. 205 CARRETERA A SAN MARCOS CENTRO COMERCIAL INTERPLAZA XELA
+              LOCAL FS 14 LA ESPERANZA
+            </td>
+            <td></td>
+            <td class="text-m text-right">Número de acceso:</td>
+          </tr>
+          <tr>
+            <td class="text-m">Quetzaltenago, Quetzaltenango</td>
+            <td></td>
+            <td class="text-m text-right">Moneda: GTQ</td>
+          </tr>
+          <tr>
+            <td class="text-m">Telefono: 11223344</td>
+            <td></td>
+            <td class="text-m text-right">
+              Fecha y hora emisión: 01/01/2024 20:20:20
+            </td>
+          </tr>
+          <tr>
+            <td class="text-m">www.intelaf.com</td>
+            <td></td>
+            <td class="text-m text-right">
+              Fecha y hora certificación: 01/01/2024 20:20:20
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="tabla-datos-factura" style="margin-top: 15px">
+        <tbody>
+          <tr>
+            <td class="text-m text-bold">Receptor</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-m">NIT: {{ nit_comprador }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="text-m">Nombre: {{ nombre_comprador }}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <hr class="separacion" />
+    <section class="datos-compra" style="margin-top: 20px">
+      <table id="tabla-datos-compra">
+        <thead>
+          <tr>
+            <th class="text-m text-center">No</th>
+            <th class="text-m text-center">Cantidad</th>
+            <th class="text-m text-center">Descripción</th>
+            <th class="text-m text-center">P. Unitario Con IVA (Q)</th>
+            <th class="text-m text-center">Descuento (Q)</th>
+            <th class="text-m text-center">Total (Q)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in detalle_compra %}
+          <tr>
+            <td class="text-s text-center">{{ loop.index }}</td>
+            <td class="text-s text-center">{{ item.cantidad }}</td>
+            <td class="text-s text-left">{{ item.producto }}</td>
+            <td class="text-s text-right">{{ item.precio_unitario }}</td>
+            <td class="text-s text-right">{{ item.descuento }}</td>
+            <td class="text-s text-right">{{ item.sub_total }}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="4" class="text-m text-center text-bold">Totales</td>
+            <td class="text-m text-right text-bold">954.00</td>
+            <td class="text-m text-right text-bold">12680.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <section class="footer" style="margin-top: 20px">
+      <table id="tabla-footer">
+        <tbody>
+          <tr>
+            <td class="text-s text-left">*Sujeto a pagos trimestrales ISR</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="text-s text-center">Datos del certificador</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="text-s text-center">GUATEFACTURAS, SOCIEDAD ANONIMA</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="text-s text-center">NIT: 12345678-9</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

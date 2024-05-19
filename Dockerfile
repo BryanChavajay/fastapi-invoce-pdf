@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./app /code/app
 
 # Exponemos un puerto para currer la aplicacion
-EXPOSE 8080
+EXPOSE 80
 
 # Levantamos el servidor
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]

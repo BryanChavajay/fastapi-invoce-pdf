@@ -13,7 +13,7 @@ def read_root():
 
 @app.get("/invoce")
 def send_invoce():
-    env = Environment(loader=FileSystemLoader("./"))
+    env = Environment(loader=FileSystemLoader("app"))
     template = env.get_template("template-factura.html")
 
     detalle_compra = [
@@ -38,9 +38,11 @@ def send_invoce():
     template_vars = {
         "nit_comprador": "12345678-9",
         "nombre_comprador": "DOE,JOHN",
-        "imagen_url": "'file:///" + os.getcwd().replace("\\", "/") + "/logo-empresa.jpg'",
+        "imagen_url": "'file:///" + os.getcwd().replace("\\", "/") + "/app/logo-empresa.jpg'",
         "detalle_compra": detalle_compra,
     }
+
+    print("'file:///" + os.getcwd().replace("\\", "/") + "/logo-empresa.jpg'")
 
     html_string = template.render(template_vars)
 
@@ -70,8 +72,10 @@ def send_invoce():
         "images": True,
     }
 
+    css_path = os.path.join(os.getcwd(), "app", "estilos.css")
+
     pdfkit.from_string(
-        html_string, "factura.pdf", configuration=config, options=options, css="estilos.css"
+        html_string, "factura.pdf", configuration=config, options=options, css=css_path
     )
 
     invoce_path = os.getcwd().replace("\\", "/") + "/factura.pdf"

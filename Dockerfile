@@ -1,7 +1,7 @@
 # Partimos de la imagen preparada
 FROM surnet/alpine-python-wkhtmltopdf:3.12.2-0.12.6-small
 
-ENV WKHTMLTOPDF_PATH_ENV=/usr/bin/wkhtmltopdf
+ENV WKHTMLTOPDF_PATH=/bin/wkhtmltopdf
 
 # Creamos un directorio de trabajo
 WORKDIR /code

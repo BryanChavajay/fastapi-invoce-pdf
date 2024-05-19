@@ -3,6 +3,7 @@ FROM ubuntu:22.04
 
 # Actualizamos los repositorios e instalamos Python
 # RUN sed 's/main$/main universe/' -i /etc/apt/sources.list
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC
 RUN apt-get update
 RUN apt-get upgrade -y
 
@@ -38,10 +39,10 @@ COPY ./requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 # Copiamos el codigo en el directorio
-COPY . ./code
+COPY ./app /code/app
 
 # Exponemos un puerto para currer la aplicacion
 EXPOSE 8080
 
 # Levantamos el servidor
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]

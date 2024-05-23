@@ -7,9 +7,11 @@ from decouple import config as con
 
 app = FastAPI()
 
+
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
 
 @app.get("/invoce")
 def send_invoce():
@@ -20,15 +22,7 @@ def send_invoce():
         {
             "cantidad": 2,
             "producto": """ASUS FA506IHR-HN08 RYZEN 5 3GHZ 8GB 512GB SSD 15.6 W11H GTX1650
-                4GB Garantia: 12 Mes(es) S/N: R3NRCX03B007116, R3NRCX03A98611A""",
-            "precio_unitario": 6817.00,
-            "descuento": 954.00,
-            "sub_total": 12680,
-        },
-        {
-            "cantidad": 2,
-            "producto": """ASUS FA506IHR-HN08 RYZEN 5 3GHZ 8GB 512GB SSD 15.6 W11H GTX1650
-                4GB Garantia: 12 Mes(es) S/N: R3NRCX03B007116, R3NRCX03A98611A""",
+                4GB Garantia: 12 Mes(es)""",
             "precio_unitario": 6817.00,
             "descuento": 954.00,
             "sub_total": 12680,
@@ -38,15 +32,15 @@ def send_invoce():
     template_vars = {
         "nit_comprador": "12345678-9",
         "nombre_comprador": "DOE,JOHN",
-        "imagen_url": "'file:///" + os.getcwd().replace("\\", "/") + "/app/logo-empresa.jpg'",
+        "imagen_url": "'file:///"
+        + os.getcwd().replace("\\", "/")
+        + "/app/logo-empresa.jpg'",
         "detalle_compra": detalle_compra,
     }
 
-    print("'file:///" + os.getcwd().replace("\\", "/") + "/logo-empresa.jpg'")
-
     html_string = template.render(template_vars)
 
-    path_wkhtmltopdf = con('WKHTMLTOPDF_PATH')
+    path_wkhtmltopdf = con("WKHTMLTOPDF_PATH")
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
 
     ## Newly added options
@@ -81,4 +75,3 @@ def send_invoce():
     invoce_path = os.getcwd().replace("\\", "/") + "/factura.pdf"
 
     return FileResponse(invoce_path)
-

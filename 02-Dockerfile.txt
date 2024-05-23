@@ -14,19 +14,12 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update
 
 # Instalamos paquetes desde los repositorios de ubuntu
-RUN apt install -y dpkg wget fontconfig libxext6 libxrender1 xfonts-75dpi xfonts-base python3 python3-pip && \
+RUN apt install -y python3 python3-pip wkhtmltopdf && \
     rm -rf /var/lib/apt/lists/* && \
     apt clean
 
-# Descargamos el paquete wkhtmltopdf desde su repositorio oficial
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
-
-# Instalamos el paquete con gdebi
-RUN dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb && \
-    apt install -f
-
 # Variable de entorno con la direccion de wkhtmltopdf
-ENV WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
+ENV WKHTMLTOPDF_PATH=/usr/bin/wkhtmltopdf
 
 # Creamos un directorio de trabajo
 WORKDIR /code

@@ -1,32 +1,7 @@
-# Descargamos la imagen base de ubuntu
-FROM ubuntu:22.04
+# Partimos de la imagen preparada
+FROM surnet/alpine-python-wkhtmltopdf:3.12.2-0.12.6-small
 
-# Información del mantenedor de la imagen
-LABEL maintainer="bchavajaydev@gmail.com"
-LABEL version="1.0"
-LABEL description="Este es un repositorio para desplegar \
-aplicaciones Python junto a WKHTMLTOPDF."
-
-# Desabilitamos los mensajes durante la instalacion
-ARG DEBIAN_FRONTEND=noninteractive
-
-# Actualizamos el repositorio de software de Ubuntu
-RUN apt update
-
-# Instalamos paquetes desde los repositorios de ubuntu
-RUN apt install -y dpkg wget fontconfig libxext6 libxrender1 xfonts-75dpi xfonts-base python3 python3-pip && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt clean
-
-# Descargamos el paquete wkhtmltopdf desde su repositorio oficial
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
-
-# Instalamos el paquete con gdebi
-RUN dpkg -i wkhtmltox_0.12.6.1-2.jammy_amd64.deb && \
-    apt install -f
-
-# Variable de entorno con la direccion de wkhtmltopdf
-ENV WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
+ENV WKHTMLTOPDF_PATH=/bin/wkhtmltopdf
 
 # Creamos un directorio de trabajo
 WORKDIR /code
@@ -40,8 +15,8 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # Copiamos el codigo en el directorio
 COPY ./app /code/app
 
-# Exponemos un puerto para correr la aplicacion
-EXPOSE 8081
+# Exponemos un puerto para la aplicacion
+EXPOSE 80
 
 # Levantamos el servidor
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8081"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
